@@ -57,5 +57,12 @@ class TestRobot(unittest.TestCase):
         self.robot.right()
         self.assertEqual(self.robot.facing, "SOUTH")
 
+    def test_report(self):
+        """Test the report command after movement."""
+        self.robot.place(2, 2, "EAST", self.tabletop)
+        self.robot.move(self.tabletop)
+        self.robot.right()
+        self.assertEqual(self.robot.report(), "3,2,SOUTH")
+
 if __name__ == "__main__":
     unittest.main()
