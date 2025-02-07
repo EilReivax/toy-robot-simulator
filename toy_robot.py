@@ -11,6 +11,7 @@ class ToyRobot:
         self.facing = None
 
     def is_placed(self):
+        """Check if the robot is placed on the tabletop."""
         return self.x is not None and self.y is not None and self.facing is not None
 
     def place(self, x, y, facing, tabletop):
