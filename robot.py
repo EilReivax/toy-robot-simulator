@@ -22,6 +22,8 @@ class Robot:
             self.x = x
             self.y = y
             self.facing = facing
+        else:
+            print("Invalid position, ignoring command.")
 
     def move(self, tabletop):
         """Move the robot one step in the direction it is facing, if within bounds."""
@@ -34,6 +36,8 @@ class Robot:
 
         if tabletop.is_valid_position(new_x, new_y):
             self.x, self.y = new_x, new_y
+        else:
+            print("Invalid move, ignoring command.")
 
     def left(self):
         """Rotates the robot to the left by going through the list of directions."""
