@@ -41,5 +41,21 @@ class TestRobot(unittest.TestCase):
         self.robot.move(self.tabletop)  # Should not move past (0,4)
         self.assertEqual((self.robot.x, self.robot.y), (0, 4))
 
+    def test_rotation_left(self):
+        """Test left rotation (counter-clockwise)."""
+        self.robot.place(0, 0, "NORTH", self.tabletop)
+        self.robot.left()
+        self.assertEqual(self.robot.facing, "WEST")
+        self.robot.left()
+        self.assertEqual(self.robot.facing, "SOUTH")
+
+    def test_rotation_right(self):
+        """Test right rotation (clockwise)."""
+        self.robot.place(0, 0, "NORTH", self.tabletop)
+        self.robot.right()
+        self.assertEqual(self.robot.facing, "EAST")
+        self.robot.right()
+        self.assertEqual(self.robot.facing, "SOUTH")
+
 if __name__ == "__main__":
     unittest.main()
