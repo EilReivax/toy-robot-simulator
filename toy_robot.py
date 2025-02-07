@@ -34,13 +34,13 @@ class ToyRobot:
             self.x, self.y = new_x, new_y
 
     def left(self):
-        """Rotates the robot 90 degrees to the left by going through the list of directions."""
+        """Rotates the robot to the left by going through the list of directions."""
         if self.is_placed():
             current_index = self.DIRECTIONS.index(self.facing)
             self.facing = self.DIRECTIONS[(current_index - 1) % len(self.DIRECTIONS)]
 
     def right(self):
-        """Rotates the robot 90 degrees to the right by going through the list of directions."""
+        """Rotates the robot to the right by going through the list of directions."""
         if self.is_placed():
             current_index = self.DIRECTIONS.index(self.facing)
             self.facing = self.DIRECTIONS[(current_index + 1) % len(self.DIRECTIONS)]
