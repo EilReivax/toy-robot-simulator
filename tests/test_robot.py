@@ -64,5 +64,12 @@ class TestRobot(unittest.TestCase):
         self.robot.right()
         self.assertEqual(self.robot.report(), "3,2,SOUTH")
 
+    def test_ignore_commands_before_place(self):
+        """Ensure all commands before PLACE are ignored."""
+        self.robot.move(self.tabletop)
+        self.robot.left()
+        self.robot.right()
+        self.assertEqual(self.robot.report(), "Robot not placed yet.")
+
 if __name__ == "__main__":
     unittest.main()
