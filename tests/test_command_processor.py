@@ -17,6 +17,12 @@ class TestCommandProcessor(unittest.TestCase):
         self.processor.process_commands(commands)
         self.assertEqual(self.robot.report(), "Robot not placed yet.")
 
+    def test_ignore_blank_lines(self):
+        """Test that blank lines are ignored."""
+        commands = ["", "  ", "\n", "PLACE 0,0,NORTH", "", "MOVE", "  ", "REPORT"]
+        self.processor.process_commands(commands)
+        self.assertEqual(self.robot.report(), "0,1,NORTH")
+
     def test_valid_place_and_move(self):
         """Ensure PLACE and MOVE commands work correctly."""
         commands = ["PLACE 0,0,NORTH", "MOVE", "REPORT"]
@@ -25,7 +31,7 @@ class TestCommandProcessor(unittest.TestCase):
 
     def test_invalid_place_command(self):
         """Ensure invalid PLACE commands are ignored."""
-        commands = ["PLACE 6,6,NORTH", "REPORT"]
+        commands = ["PLACE invalid", "REPORT"]
         self.processor.process_commands(commands)
         self.assertEqual(self.robot.report(), "Robot not placed yet.")
 
