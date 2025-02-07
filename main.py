@@ -1,5 +1,6 @@
 from tabletop import Tabletop
-from toy_robot import ToyRobot
+from robot import Robot
+from command_processor import CommandProcessor
 
 def read_file(filename):
     try:
@@ -11,32 +12,11 @@ def read_file(filename):
 
 def main():
     tabletop = Tabletop(5, 5)
-    robot = ToyRobot()
+    robot = Robot()
+    processor = CommandProcessor(tabletop, robot)
 
     lines = read_file("commands.txt")
-
-    for line in lines:
-        command = line.split()
-        if not command:
-            continue
-
-        action = command[0]
-
-        if action == "PLACE":
-            try:
-                x, y, facing = command[1].split(',')
-                robot.place(int(x), int(y), facing, tabletop)
-            except ValueError:
-                print(f"Invalid command: '{line}'")
-                break
-        elif action == "MOVE":
-            robot.move(tabletop)
-        elif action == "LEFT":
-            robot.left()
-        elif action == "RIGHT":
-            robot.right()
-        elif action == "REPORT":
-            print(robot.report())
+    processor.process_commands(lines)
 
 if __name__ == '__main__':
     main()
