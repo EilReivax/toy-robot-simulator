@@ -71,5 +71,11 @@ class TestRobot(unittest.TestCase):
         self.robot.right()
         self.assertEqual(self.robot.report(), "Robot not placed yet.")
 
+    def test_prevent_replacement(self):
+        """Ensure robot cannot be placed again after first placement."""
+        self.robot.place(0, 0, "NORTH", self.tabletop)
+        self.robot.place(2, 2, "EAST", self.tabletop)  # Should be ignored
+        self.assertEqual((self.robot.x, self.robot.y, self.robot.facing), (0, 0, "NORTH"))
+
 if __name__ == "__main__":
     unittest.main()
