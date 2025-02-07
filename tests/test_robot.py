@@ -29,5 +29,17 @@ class TestRobot(unittest.TestCase):
         self.robot.place(6, 6, "NORTH", self.tabletop)  # Out of bounds
         self.assertFalse(self.robot.is_placed())  # Should not be placed
 
+    def test_move_valid(self):
+        """Test moving the robot within bounds."""
+        self.robot.place(0, 0, "NORTH", self.tabletop)
+        self.robot.move(self.tabletop)
+        self.assertEqual((self.robot.x, self.robot.y), (0, 1))
+
+    def test_move_invalid(self):
+        """Test moving the robot off the edge."""
+        self.robot.place(0, 4, "NORTH", self.tabletop)
+        self.robot.move(self.tabletop)  # Should not move past (0,4)
+        self.assertEqual((self.robot.x, self.robot.y), (0, 4))
+
 if __name__ == "__main__":
     unittest.main()
