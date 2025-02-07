@@ -6,7 +6,7 @@ def read_file(filename):
         with open(filename, 'r') as file:
             return [line.strip() for line in file.readlines()]
     except FileNotFoundError:
-        print(f"File '{filename}' not found.")
+        print(f"Error: File '{filename}' was not found.")
         return []
 
 def main():
@@ -28,6 +28,7 @@ def main():
                 robot.place(int(x), int(y), facing, tabletop)
             except ValueError:
                 print(f"Invalid PLACE command: {command}")
+                print(f"Invalid command: '{line}'")
         elif action == "MOVE":
             robot.move(tabletop)
         elif action == "LEFT":
