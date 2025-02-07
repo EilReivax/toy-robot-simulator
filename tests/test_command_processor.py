@@ -17,5 +17,17 @@ class TestCommandProcessor(unittest.TestCase):
         self.processor.process_commands(commands)
         self.assertEqual(self.robot.report(), "Robot not placed yet.")
 
+    def test_valid_place_and_move(self):
+        """Ensure PLACE and MOVE commands work correctly."""
+        commands = ["PLACE 0,0,NORTH", "MOVE", "REPORT"]
+        self.processor.process_commands(commands)
+        self.assertEqual(self.robot.report(), "0,1,NORTH")
+
+    def test_invalid_place_command(self):
+        """Ensure invalid PLACE commands are ignored."""
+        commands = ["PLACE 6,6,NORTH", "REPORT"]
+        self.processor.process_commands(commands)
+        self.assertEqual(self.robot.report(), "Robot not placed yet.")
+
 if __name__ == "__main__":
     unittest.main()
