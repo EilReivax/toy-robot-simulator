@@ -3,7 +3,7 @@ from toy_robot import ToyRobot
 
 def read_file(filename):
     try:
-        with open(filename, 'r') as file:
+        with open(filename) as file:
             return [line.strip() for line in file.readlines()]
     except FileNotFoundError:
         print(f"Error: File '{filename}' was not found.")
@@ -22,13 +22,13 @@ def main():
 
         action = command[0]
 
-        if action == "PLACE" and len(parts) == 2:
+        if action == "PLACE":
             try:
                 x, y, facing = command[1].split(',')
                 robot.place(int(x), int(y), facing, tabletop)
             except ValueError:
-                print(f"Invalid PLACE command: {command}")
                 print(f"Invalid command: '{line}'")
+                break
         elif action == "MOVE":
             robot.move(tabletop)
         elif action == "LEFT":
