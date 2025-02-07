@@ -1,6 +1,4 @@
-from tabletop import Tabletop
-
-class ToyRobot:
+class Robot:
     """A class representing a robot and its commands (functions)."""
 
     DIRECTIONS = ['NORTH', 'EAST', 'SOUTH', 'WEST']
@@ -16,6 +14,10 @@ class ToyRobot:
 
     def place(self, x, y, facing, tabletop):
         """Place the robot on the tabletop if within bounds."""
+        if self.is_placed():
+            print("Robot already placed.")
+            return # Ignore command if robot already placed
+
         if tabletop.is_valid_position(x, y) and facing in self.DIRECTIONS:
             self.x = x
             self.y = y
@@ -35,19 +37,23 @@ class ToyRobot:
 
     def left(self):
         """Rotates the robot to the left by going through the list of directions."""
-        if self.is_placed():
-            current_index = self.DIRECTIONS.index(self.facing)
-            self.facing = self.DIRECTIONS[(current_index - 1) % len(self.DIRECTIONS)]
+        if not self.is_placed():
+            return # Ignore command if not placed
+
+        current_index = self.DIRECTIONS.index(self.facing)
+        self.facing = self.DIRECTIONS[(current_index - 1) % len(self.DIRECTIONS)]
 
     def right(self):
         """Rotates the robot to the right by going through the list of directions."""
-        if self.is_placed():
-            current_index = self.DIRECTIONS.index(self.facing)
-            self.facing = self.DIRECTIONS[(current_index + 1) % len(self.DIRECTIONS)]
+        if not self.is_placed():
+            return # Ignore command if not placed
+
+        current_index = self.DIRECTIONS.index(self.facing)
+        self.facing = self.DIRECTIONS[(current_index + 1) % len(self.DIRECTIONS)]
 
     def report(self):
         """Reports the current position and direction of the robot."""
-        if not self.is_placed():
-            return "Robot not placed yet."
-        else:
+        if self.is_placed():
             return f"{self.x},{self.y},{self.facing}"
+        else:
+            return "Robot not placed yet."
